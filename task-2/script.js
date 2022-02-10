@@ -13,7 +13,7 @@ function renderMeals(meals){
     var wrapper = document.createElement("div");
     wrapper.classList.add("wrapper")
 
-    meals.forEach( function(meal) {
+    meals.forEach( meal => {
         var p1 = document.createElement("p")
         var p2 = document.createElement("p")
         var p3 = document.createElement("p")
@@ -37,3 +37,48 @@ var salat = new Meal('salat',12,["greens","bacon","egg","cottage-cheese","tomato
 
 var mealsArray= [pizza,burger,salat]
 renderMeals(mealsArray)
+
+// new example
+
+class Animal {
+    constructor(name,sound){
+        this.name = name;
+        this.sound = sound;
+    }
+
+    animalSound(){
+        return "I am a" + " " + this.name + " " + this.sound; 
+    }
+}
+
+
+var cat = new Animal ('Cat', 'mijaaau')
+
+console.log(cat.animalSound());
+
+
+// new example
+
+class Person{
+    name = "Nedim"
+
+    // constructor(name){
+    //     this.name = name;
+    // }
+
+    setName(){
+
+    }
+
+    getName(){
+
+    }
+
+    introduceYourself(){
+
+    }
+}
+
+var nedim = new Person()
+
+console.log(nedim.name)
