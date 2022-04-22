@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market place</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="title">Market place</div>
+
+    <div class="window">
+
+        <div class="veggies">
+            <h2>Veggies</h2>
+            <div class="product">
+
+                <div class="product-img potato-img"></div>
+
+                <div class="name-price">
+                    <h3 class="name">Potato</h3>
+                    <h4 class="price">Price: $<span id="potato-price">10</span></h4>
+                </div>
+
+                <div class="quantity-add">
+                    <input class="quantity" id="potato-qnt" type="number" min="0" value="0">
+                    <button class="add" id="potato-add">Add</button>
+                </div>
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-img tomato-img"></div>
+
+                <div class="name-price">
+                    <h3 class="name">Tomato</h3>
+                    <h4 class="price">Price: <span id="tomato-price">$20</span></h4>
+                </div>
+
+                <div class="quantity-add">
+                    <input class="quantity" id="tomato-qnt" type="number" value="0" min="0">
+                    <button class="add" id="tomato-add">Add</button>
+                </div>
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-img carrot-img"></div>
+
+                <div class="name-price">
+                    <h3 class="name">Carrot</h3>
+                    <h4 class="price">Price: <span id="carrot-price">$6</span></h4>
+                </div>
+
+                <div class="quantity-add">
+                    <input class="quantity" id="carrot-qnt" type="number" value="0" min="0">
+                    <button class="add" id="carrot-add">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="basket">
+            <h2>Basket</h2>
+
+            <div class="chart"></div>
+
+
+            <span class="total-price">Total: $</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

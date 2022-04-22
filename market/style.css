@@ -1,0 +1,158 @@
+* {
+    
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/images/background/bckg-img.jpg);
+    background-size: cover;
+    background-position: center;
+
+}
+
+
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.window {
+    display: flex;
+    width: 650px;
+    height: 490px;
+    background-color: rgba(19,58,27,0.8);
+    border-radius: 30px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.veggies {
+    width: 60%;
+    height: 100%;
+    color: beige;
+}
+
+.veggies > h2 {
+    margin-left: 20px;
+    color: beige;
+}
+
+.product {
+    display: flex;
+    border: 1.5px solid beige;
+    border-radius: 14px;
+    justify-content: center;
+    align-items: center;
+    height: 25%;
+    margin-top: 10px;
+}
+
+.product-img {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 20px;
+    transform: translateX(-25px);
+    border-radius: 50%;
+}
+
+.potato-img {
+    background-image: url(/images/veggies/potato.jpg);
+}
+
+.tomato-img {
+    background-image: url(/images/veggies/tomato.jpg);
+}
+
+.carrot-img {
+    background-image: url(/images/veggies/carrot.jpg);
+}
+
+
+.name-price {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    transform: translateX(-20px);
+    height: 100px;
+}
+
+.name {
+    text-transform: uppercase;
+    font-weight: bold;
+    transform: translateY(20px);
+}
+
+.price {
+    font-size: 13px;
+}
+
+.quantity-add {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    width: 150px;
+
+}
+
+.quantity-add input {
+    width: 30px;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 15px;
+}
+
+.quantity-add button {
+    width: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.basket {
+    width: 40%;
+    color: beige;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.basket h2 {
+    transform: translateX(30%);
+}
+
+.basket .total-price {
+    font-size: 25px;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+
+.potato-basket {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px;
+}
+
+.tomato-basket {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px;
+}
+
+.carrot-basket {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px;
+}
