@@ -1,6 +1,92 @@
-// const potatoPrice = document.querySelector('#potato-price')
-const tomatoPrice = document.querySelector('#tomato-price')
-const carrotPrice = document.querySelector('#carrot-price')
+let products = [
+    {
+        "name": "Kinoa",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    },
+    {
+        "name": "Luk",
+        "price": 20.00,
+        "imageUrl": "https://picsum.photos/300/300"
+    }
+]
+
+
+let veggies = document.querySelector('veggies')
+
+products.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.classList.add('.product')
+    productElement.innerHTML = `
+    <div class="product">
+
+        <div class="product-img" style = "background-image: url(${product.imageUrl})"></div>
+
+        <div class="name-price">
+            <h3 class="name">${product.name}</h3>
+            <h4 class="price">Price: $<span id="price">${product.price}</span></h4>
+        </div>
+
+        <div class="quantity-add">
+            <input class="quantity" id="tomato-qnt" type="number" value="0" min="0">
+            <button data-product-name="Tomato" data-product-price="20" class="add" id="tomato-add">Add</button>
+        </div>
+    </div>
+                            `
+    document.querySelector(".veggies").appendChild(productElement)
+    
+})
+
 
 const potatoInput = document.querySelector('#potato-qnt')
 const tomatoInput = document.querySelector('#tomato-qnt')
@@ -10,7 +96,29 @@ const potatoAdd = document.querySelector('#potato-add')
 const tomatoAdd = document.querySelector('#tomato-add')
 const carrotAdd = document.querySelector('#carrot-add')
 
+
 const total = document.querySelector('.total-price')
+
+
+
+function countPrice() {
+    let potatoPrice = 10;
+    let potatoKg = potatoInput.value
+    let resPotato = potatoPrice * potatoKg
+
+    let tomatoPrice = 20;
+    let tomatoKg = tomatoInput.value
+    let resTomato = tomatoPrice * tomatoKg
+
+    let carrotPrice = 6;
+    let carrotKg = carrotInput.value
+    let resCarrot = carrotPrice * carrotKg
+
+    let text = ''
+    
+    total.innerText = 
+    resCarrot + resPotato + resTomato + "$"
+}
 
 function addPotatoInBasket() {
     let potatoPrice = 10;
@@ -31,11 +139,13 @@ function addPotatoInBasket() {
 
     let removeBtn = document.querySelector('.remove-potato')
     removeBtn.addEventListener('click',  () => {
+    
         potatoChart.remove()
         potatoAdd.disabled = false;
         
     })
 }
+
 
 function addTomatoInBasket() {
     let tomatoPrice = 20;
@@ -62,7 +172,6 @@ function addTomatoInBasket() {
     })
 }
 
-
 function addCarrotInBasket() {
     let carrotPrice = 6;
     let carrotKg = carrotInput.value
@@ -88,6 +197,9 @@ function addCarrotInBasket() {
     })
     
 }
+
+
+
 
 potatoAdd.addEventListener('click', () => {
     

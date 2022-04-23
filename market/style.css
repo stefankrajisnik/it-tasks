@@ -17,18 +17,18 @@ body {
 
 
 .title {
-    font-size: 25px;
+    font-size: 45px;
     font-weight: bold;
     margin: 15px;
+    color:rgb(64, 121, 76)
 }
 
 .window {
     display: flex;
     width: 650px;
-    height: 490px;
     background-color: rgba(19,58,27,0.8);
     border-radius: 30px;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 5px;
 }
 
@@ -156,3 +156,6 @@ body {
     justify-content: space-between;
     margin: 12px;
 }
+
+
+
