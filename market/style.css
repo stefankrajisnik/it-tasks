@@ -156,6 +156,8 @@ body {
     justify-content: space-between;
     margin: 12px;
 }
-
-
-
+.product-basket {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px;
+}
