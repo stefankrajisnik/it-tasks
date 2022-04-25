@@ -1,74 +1,50 @@
-let products = [
+{/* <div class="product">
+    <div class="product-img carrot-img"></div>
+
+    <div class="name-price">
+        <h3 class="name">Carrot</h3>
+        <h4 class="price">Price: $<span id="price">6</span></h4>
+    </div>
+
+    <div class="quantity-add">
+        <input class="quantity" id="carrot-qnt" type="number" value="0" min="0">
+        <button class="add" id="carrot-add">Add</button>
+    </div>
+</div> */}
+
+const products = [
     {
         "name": "Kinoa",
-        "price": 20.00,
+        "price": 1.00,
         "imageUrl": "https://picsum.photos/300/300"
     },
     {
         "name": "Luk",
-        "price": 20.00,
+        "price": 2.00,
         "imageUrl": "https://picsum.photos/300/300"
     },
     {
-        "name": "Luk",
-        "price": 20.00,
+        "name": "Krompir",
+        "price": 2.50,
         "imageUrl": "https://picsum.photos/300/300"
     },
     {
-        "name": "Luk",
-        "price": 20.00,
+        "name": "Paradajz",
+        "price": 3.75,
         "imageUrl": "https://picsum.photos/300/300"
     },
     {
-        "name": "Luk",
-        "price": 20.00,
+        "name": "Krastavac",
+        "price": 5,
         "imageUrl": "https://picsum.photos/300/300"
     },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 20.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    }
-]
-const quantity = document.querySelector('.quantity')
+];
 
 
-products.forEach(product => {
+products.forEach((product, index) => {
     const productElement = document.createElement('div');
-    productElement.classList.add('.product')
+    productElement.classList.add('product')
     productElement.innerHTML = `
-    <div class="product">
-
         <div class="product-img" style = "background-image: url(${product.imageUrl})"></div>
 
         <div class="name-price">
@@ -77,183 +53,96 @@ products.forEach(product => {
         </div>
 
         <div class="quantity-add">
-            <input class="quantity" id="tomato-qnt" type="number" value="0" min="0">
-            <button data-product-name="Tomato"  class="product-add">Add</button>
-        </div>
-    </div>
-                            `
-    document.querySelector(".veggies").appendChild(productElement)
+            <input class="quantity" type="number" value="0" min="0">
+            <button class="product-add" data-product-index="${index}">Add</button>
+        </div>`;
 
-})
+    productElement.querySelector('button').addEventListener('click', (e) => {
+        const { productIndex } = e.target.dataset;
 
-const productAdd = document.querySelector('.product-add')
+        // const productIndex = e.target.dataset.productIndex;
 
-function addProductInBasket() {
+        const product = products[productIndex];
+        const quantity = e.target.closest('.quantity-add').querySelector('input.quantity').value;
+        product.quantity = +quantity;
+
+        console.log({product})
+
+        add(product);
+        renderBasket();
+    });
+
+    document.querySelector(".veggies").appendChild(productElement);
+});
+
+
+
+const getProductsFromLocalStorage = () => {
+    const value = window.localStorage.getItem("BASKET")
+    
+    let products = JSON.parse(value)
+
+    if(!products) {
+        products = []
+    }
+
+    return products;
+}
+
+
+const add = (item) => {
+    let products = getProductsFromLocalStorage();
+
+    const itemExists = products.filter(product => {
+        return product.name === item.name;
+    })[0];
+
+    if (itemExists) {
+        products = products.filter(product => {
+            return product.name !== item.name;
+        });
+    }
+
+    products.push(item)
+
+    window.localStorage.setItem("BASKET", JSON.stringify(products))
+
+    console.log(products);
+
+}
+
+const remove = (item) => {
+    let products = getProductsFromLocalStorage();
+
+    products = products.filter(product => {
+        return product.name !== item.name;
+    });
+
+    window.localStorage.setItem("BASKET", JSON.stringify(products))
+
+    console.log(products);
+}
+
+const renderBasket =() => {
+    const products = getProductsFromLocalStorage();
+
+    document.querySelector('.chart').innerHTML = '';
 
     products.forEach(product => {
-        let productName = product.name;
-        let productKg = quantity.value
-        let productPrice = product.price
+        const item = document.createElement('div');
 
-        let resProduct = productPrice * productKg
+        item.innerHTML = `
+            ${product.name}: $${product.price} x ${product.quantity} = $${product.price * product.quantity}
+            <button>X</button>
+        `;
 
-        let productChart = document.createElement('div');
-        productChart.classList.add('product-basket')
-        productChart.innerHTML = `${productName}: <br>
-                            $${productPrice} x ${productKg} = $${resProduct}
-                            <button class="remove-product">Remove</button>
-                            `
-
-        document.querySelector(".chart").appendChild(productChart)
-
-        productAdd.disabled = true;
-
-        let removeProduct = document.querySelector('.remove-product')
-        removeProduct.addEventListener('click', () => {
-
-            productChart.remove()
-            productAdd.disabled = false;
-
+        item.querySelector('button').addEventListener('click', (e) => {
+            remove(product);
+            renderBasket();
         })
-    })
 
+        document.querySelector('.chart').appendChild(item);
+    });
 }
 
-const potatoInput = document.querySelector('#potato-qnt')
-const tomatoInput = document.querySelector('#tomato-qnt')
-const carrotInput = document.querySelector('#carrot-qnt')
-
-const potatoAdd = document.querySelector('#potato-add')
-const tomatoAdd = document.querySelector('#tomato-add')
-const carrotAdd = document.querySelector('#carrot-add')
-
-
-const total = document.querySelector('.total-price')
-
-
-
-function countPrice() {
-    let potatoPrice = 10;
-    let potatoKg = potatoInput.value
-    let resPotato = potatoPrice * potatoKg
-
-    let tomatoPrice = 20;
-    let tomatoKg = tomatoInput.value
-    let resTomato = tomatoPrice * tomatoKg
-
-    let carrotPrice = 6;
-    let carrotKg = carrotInput.value
-    let resCarrot = carrotPrice * carrotKg
-
-    let text = ''
-
-    total.innerText =
-        resCarrot + resPotato + resTomato + "$"
-}
-
-function addPotatoInBasket() {
-    let potatoPrice = 10;
-    let potatoKg = potatoInput.value
-
-    let resPotato = potatoPrice * potatoKg
-
-    let potatoChart = document.createElement('div');
-    potatoChart.classList.add('potato-basket')
-    potatoChart.innerHTML = `Potato: <br>
-                            $${potatoPrice} x ${potatoKg} = $${resPotato}
-                            <button class="remove-potato">Remove</button>
-                            `
-
-    document.querySelector(".chart").appendChild(potatoChart)
-
-    potatoAdd.disabled = true;
-
-    let removeBtn = document.querySelector('.remove-potato')
-    removeBtn.addEventListener('click', () => {
-
-        potatoChart.remove()
-        potatoAdd.disabled = false;
-
-    })
-}
-
-
-function addTomatoInBasket() {
-    let tomatoPrice = 20;
-    let tomatoKg = tomatoInput.value
-
-    let resTomato = tomatoPrice * tomatoKg
-
-    let tomatoChart = document.createElement('div');
-    tomatoChart.classList.add('tomato-basket')
-    tomatoChart.innerHTML = `Tomato: <br>
-                            $${tomatoPrice} x ${tomatoKg} = $${resTomato}
-                            <button class="remove-tomato">Remove</button>
-                            `
-
-    document.querySelector(".chart").appendChild(tomatoChart)
-
-    tomatoAdd.disabled = true;
-
-    let removeBtn = document.querySelector('.remove-tomato')
-    removeBtn.addEventListener('click', () => {
-        tomatoChart.remove()
-        tomatoAdd.disabled = false;
-
-    })
-}
-
-function addCarrotInBasket() {
-    let carrotPrice = 6;
-    let carrotKg = carrotInput.value
-
-    let resCarrot = carrotPrice * carrotKg
-
-    let carrotChart = document.createElement('div');
-    carrotChart.classList.add('carrot-basket')
-    carrotChart.innerHTML = `Carrot: <br>
-                            $${carrotPrice} x ${carrotKg} = $${resCarrot}
-                            <button class="remove-carrot">Remove</button>
-                            `
-
-    document.querySelector(".chart").appendChild(carrotChart)
-
-    carrotAdd.disabled = true;
-
-    let removeBtn = document.querySelector('.remove-carrot')
-    removeBtn.addEventListener('click', () => {
-        carrotChart.remove()
-        carrotAdd.disabled = false;
-
-    })
-
-}
-
-
-potatoAdd.addEventListener('click', () => {
-
-    addPotatoInBasket()
-    countPrice()
-
-})
-
-tomatoAdd.addEventListener('click', () => {
-
-    addTomatoInBasket()
-    countPrice()
-
-})
-
-carrotAdd.addEventListener('click', () => {
-
-    addCarrotInBasket()
-    countPrice()
-
-})
-productAdd.addEventListener('click', () => {
-
-    addProductInBasket()
-    countPrice()
-    console.log('clicked')
-
-})
+renderBasket()
