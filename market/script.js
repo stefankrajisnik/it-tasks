@@ -67,7 +67,7 @@ products.forEach((product, index) => {
         product.quantity = +quantity;
 
         console.log({product})
-
+        console.log(product.quantity)
         add(product);
         renderBasket();
     });
@@ -81,7 +81,7 @@ const getProductsFromLocalStorage = () => {
     const value = window.localStorage.getItem("BASKET")
     
     let products = JSON.parse(value)
-
+    
     if(!products) {
         products = []
     }
@@ -92,6 +92,10 @@ const getProductsFromLocalStorage = () => {
 
 const add = (item) => {
     let products = getProductsFromLocalStorage();
+
+    if (item.quantity < 1) {
+        return;
+    }
 
     const itemExists = products.filter(product => {
         return product.name === item.name;
@@ -123,6 +127,17 @@ const remove = (item) => {
     console.log(products);
 }
 
+const calculateTotalPrice = () => {
+    let products = getProductsFromLocalStorage();
+    let total = 0;
+
+    products.forEach(product => {
+        total = total + (product.price * product.quantity);
+    });
+
+    document.querySelector('.total-price').textContent = `Total: ${total} $`;
+}
+
 const renderBasket =() => {
     const products = getProductsFromLocalStorage();
 
@@ -132,17 +147,20 @@ const renderBasket =() => {
         const item = document.createElement('div');
 
         item.innerHTML = `
-            ${product.name}: $${product.price} x ${product.quantity} = $${product.price * product.quantity}
+            ${product.name}: $${product.price} x ${product.quantity} = $<span class = "totalProductPrice">${product.price * product.quantity}</span> 
             <button>X</button>
         `;
 
         item.querySelector('button').addEventListener('click', (e) => {
             remove(product);
             renderBasket();
+            
         })
 
         document.querySelector('.chart').appendChild(item);
     });
+
+    calculateTotalPrice();
 }
 
 renderBasket()
