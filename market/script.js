@@ -1,83 +1,16 @@
-{/* <div class="product">
-    <div class="product-img carrot-img"></div>
-
-    <div class="name-price">
-        <h3 class="name">Carrot</h3>
-        <h4 class="price">Price: $<span id="price">6</span></h4>
-    </div>
-
-    <div class="quantity-add">
-        <input class="quantity" id="carrot-qnt" type="number" value="0" min="0">
-        <button class="add" id="carrot-add">Add</button>
-    </div>
-</div> */}
-
-const products = [
-    {
-        "name": "Kinoa",
-        "price": 1.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Luk",
-        "price": 2.00,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Krompir",
-        "price": 2.50,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Paradajz",
-        "price": 3.75,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-    {
-        "name": "Krastavac",
-        "price": 5,
-        "imageUrl": "https://picsum.photos/300/300"
-    },
-];
-
-
-products.forEach((product, index) => {
-    const productElement = document.createElement('div');
-    productElement.classList.add('product')
-    productElement.innerHTML = `
-        <div class="product-img" style = "background-image: url(${product.imageUrl})"></div>
-
-        <div class="name-price">
-            <h3 class="name">${product.name}</h3>
-            <h4 class="price">Price: $<span id="price">${product.price}</span></h4>
-        </div>
-
-        <div class="quantity-add">
-            <input class="quantity" type="number" value="0" min="0">
-            <button class="product-add" data-product-index="${index}">Add</button>
-        </div>`;
-
-    productElement.querySelector('button').addEventListener('click', (e) => {
-        const { productIndex } = e.target.dataset;
-
-        // const productIndex = e.target.dataset.productIndex;
-
-        const product = products[productIndex];
-        const quantity = e.target.closest('.quantity-add').querySelector('input.quantity').value;
-        product.quantity = +quantity;
-
-        console.log({product})
-        console.log(product.quantity)
-        add(product);
-        renderBasket();
-    });
-
-    document.querySelector(".veggies").appendChild(productElement);
-});
-
-
-
 const getProductsFromLocalStorage = () => {
+    const value = window.localStorage.getItem("PRODUCTS")
+    
+    let products = JSON.parse(value)
+    
+    if(!products) {
+        products = []
+    }
+
+    return products;
+}
+
+const getBasketProductsFromLocalStorage = () => {
     const value = window.localStorage.getItem("BASKET")
     
     let products = JSON.parse(value)
@@ -89,17 +22,81 @@ const getProductsFromLocalStorage = () => {
     return products;
 }
 
+const newProductBtn = document.querySelector('.new-product-btn')
+
+
+newProductBtn.addEventListener('click', ()=>{
+    const products = getProductsFromLocalStorage();
+
+    let newProductName = document.querySelector('.form-name').value
+    let newImageUrl = document.querySelector('.form-image').value
+    let newPrice = document.querySelector('.form-price').value
+
+    const newProduct = {};
+    newProduct.name = newProductName
+    newProduct.price = newPrice
+    newProduct.imageUrl = newImageUrl
+
+    products.push(newProduct);
+
+    window.localStorage.setItem("PRODUCTS", JSON.stringify(products))
+
+    renderProducts();
+})
+
+const renderProducts = () => {
+    const products = getProductsFromLocalStorage();
+    document.querySelector(".veggies").innerHTML = `<h2>Veggies</h2>`;
+    products.forEach((product, index) => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product')
+        productElement.innerHTML = `
+            <div class="product-img" style = "background-image: url(${product.imageUrl})"></div>
+    
+            <div class="name-price">
+                <h3 class="name">${product.name}</h3>
+                <h4 class="price">Price: $<span id="price">${product.price}</span></h4>
+            </div>
+    
+            <div class="quantity-add">
+                <input class="quantity" type="number" value="0" min="0">
+                <button class="product-add" data-product-index="${index}">Add</button>
+            </div>`;
+    
+        productElement.querySelector('button').addEventListener('click', (e) => {
+            const { productIndex } = e.target.dataset;
+    
+            // const productIndex = e.target.dataset.productIndex;
+    
+            const product = products[productIndex];
+            const quantity = e.target.closest('.quantity-add').querySelector('input.quantity').value;
+            product.quantity = +quantity;
+    
+            console.log({product})
+            console.log(product.quantity)
+            add(product);
+            renderBasket();
+        });
+    
+        document.querySelector(".veggies").appendChild(productElement);
+    });
+}
+
+
+
+
+
 
 const add = (item) => {
-    let products = getProductsFromLocalStorage();
+    let products = getBasketProductsFromLocalStorage();
 
     if (item.quantity < 1) {
         return;
     }
 
-    const itemExists = products.filter(product => {
+    const itemExists = products.find(product => {
         return product.name === item.name;
-    })[0];
+    });
 
     if (itemExists) {
         products = products.filter(product => {
@@ -116,7 +113,7 @@ const add = (item) => {
 }
 
 const remove = (item) => {
-    let products = getProductsFromLocalStorage();
+    let products = getBasketProductsFromLocalStorage();
 
     products = products.filter(product => {
         return product.name !== item.name;
@@ -128,7 +125,7 @@ const remove = (item) => {
 }
 
 const calculateTotalPrice = () => {
-    let products = getProductsFromLocalStorage();
+    let products = getBasketProductsFromLocalStorage();
     let total = 0;
 
     products.forEach(product => {
@@ -139,7 +136,7 @@ const calculateTotalPrice = () => {
 }
 
 const renderBasket =() => {
-    const products = getProductsFromLocalStorage();
+    const products = getBasketProductsFromLocalStorage();
 
     document.querySelector('.chart').innerHTML = '';
 
@@ -163,4 +160,5 @@ const renderBasket =() => {
     calculateTotalPrice();
 }
 
+renderProducts();
 renderBasket()
