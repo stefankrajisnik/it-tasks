@@ -32,6 +32,18 @@ body {
     padding: 5px;
 }
 
+.fields {
+    width: 650px;
+    background-color: rgb(95, 76, 76);
+    color: white;
+    height: 150px;
+    display: flex;
+    align-items: center;
+
+}
+.product-form {
+    display: flex;
+}
 .veggies {
     width: 60%;
     height: 100%;
