@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bubnjevi</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+  <section class="main-wrapper">
+    <div class="key-map-wrapper">
+      <h2>Key Mapping</h2>
+      <ul class="key-map-list">
+        <li>
+          <kbd class="key-code">E</kbd>
+          <span class="key-sound">Crash</span>
+        </li>
+        <li>
+          <kbd class="key-code">R</kbd>
+          <span class="key-sound">Ride</span>
+        </li>
+        <li>
+          <kbd class="key-code">F</kbd>
+          <span class="key-sound">Floor tom</span>
+        </li>
+        <li>
+          <kbd class="key-code">G</kbd>
+          <span class="key-sound">Mid tom</span>
+        </li>
+        <li>
+          <kbd class="key-code">H</kbd>
+          <span class="key-sound">High tom</span>
+        </li>
+        <li>
+          <kbd class="key-code">V</kbd>
+          <kbd class="key-code">B</kbd>
+          <span class="key-sound">Kick</span>
+        </li>
+        <li>
+          <kbd class="key-code">J</kbd>
+          <span class="key-sound">Snare</span>
+        </li>
+        <li>
+          <kbd class="key-code">I</kbd>
+          <span class="key-sound">Hi-Hat Open</span>
+        </li>
+        <li>
+          <kbd class="key-code">K</kbd>
+          <span class="key-sound">Hi-Hat Closed</span>
+        </li>
+      </ul>
+    </div>
+    <h1 class="main-title">JavaScript Drum Kit</h1>
+    <div class="drum-kit-wrapper">
+      <img id="crash-ride" class="crash-cymbal" src="img/crash.png" alt="Crash cymbal">
+
+      <img id="hihat-top" class="hihat-top-cymbal" src="img/hihat-top.png" alt="Hi Hat cymbal">
+
+      <div data-key="KeyJ" class="key snare">
+        <kbd>J</kbd>
+      </div>
+      <div data-key="KeyB" class="key kick">
+        <kbd>B</kbd>
+      </div>
+      <div data-key="KeyV" class="key kick2">
+        <kbd>V</kbd>
+      </div>
+      <div data-key="KeyH" class="key tom-high">
+        <kbd>H</kbd>
+      </div>
+      <div data-key="KeyG" class="key tom-mid">
+        <kbd>G</kbd>
+      </div>
+      <div data-key="KeyF" class="key tom-low">
+        <kbd>F</kbd>
+      </div>
+      <div data-key="KeyE" class="key crash">
+        <kbd>E</kbd>
+      </div>
+      <div data-key="KeyR" class="key ride">
+        <kbd>R</kbd>
+      </div>
+      <div data-key="KeyI" class="key hihat-open">
+        <kbd>I</kbd>
+      </div>
+      <div data-key="KeyK" class="key hihat-close">
+        <kbd>K</kbd>
+      </div>
+      <img class="drum-kit" src="img/drum-kit.png" alt="Drum Kit" />
+    </div>
+  </section>
+
+
+
+	<audio id="yes" data-key="KeyJ" src="sounds/sounds_kick.wav"></audio>
+	<audio data-key="KeyB" src="sounds/sounds_kick.wav"></audio>
+	<audio data-key="KeyV" src="sounds/sounds_kick.wav"></audio>
+	<audio data-key="KeyH" src="sounds/sounds_tom-high.wav"></audio>
+	<audio data-key="KeyG" src="sounds/sounds_tom-mid.wav"></audio>
+	<audio data-key="KeyF" src="sounds/sounds_tom-low.wav"></audio>
+	<audio data-key="KeyE" src="sounds/sounds_crash.wav"></audio>
+	<audio data-key="KeyR" src="sounds/sounds_ride.wav"></audio>
+	<audio data-key="KeyI" src="sounds/sounds_hihat-open.wav"></audio>
+	<audio data-key="KeyK" src="sounds/sounds_hihat-close.wav"></audio>
+
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
