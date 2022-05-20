@@ -31,7 +31,6 @@ body {
     opacity: 1;
 }
 
-
 .images {
     display: flex;
     width: 100vw;
@@ -40,6 +39,7 @@ body {
 .images div {
     width: 50%;
 }
+
 .images div h2 {
     width: 100%;
     font-size: 2rem;
@@ -51,8 +51,6 @@ body {
     height: 800px;
 }
 
-
-
 .border-line {
     height: 2px;
     width: 0%;
@@ -61,8 +59,7 @@ body {
 
 .section2 h1 {
     opacity: 0;
-    transform: translateX(-80vw);
-    
+    transform: translateX(-80vw); 
 }
 
 .section2 h1.show {
@@ -85,5 +82,4 @@ body {
     100% {
         transform: translateX(0vw);
     }
-
 }

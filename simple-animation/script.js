@@ -1,7 +1,7 @@
 const newAgeEl = document.querySelector('.section1 h1')
-
 let newAgeText = newAgeEl.textContent
 let newAgeTextSplited = newAgeText.split('')
+
 newAgeEl.innerHTML= ''
 
 newAgeTextSplited.forEach( splited => {
@@ -40,7 +40,6 @@ const showSecondText = () => {
 }
 
 
-
 const line = document.querySelector('.border-line')
 let widthProcent = 0;
 window.onscroll = () => {
@@ -66,4 +65,3 @@ window.onscroll = () => {
     // console.log("current scroll:",scrollY)
     oldScroll = scrollY
 }
-
